@@ -10,6 +10,7 @@ import (
 	"errors"
 	"time"
 	"strings"
+	"os"
 )
 
 type Piece struct {
@@ -28,6 +29,19 @@ func ToString(val interface{}) string {
 		return ""
 	}
 	return fmt.Sprint(val)
+}
+
+func PieceList() ([]*Piece, error) {	
+	files, err := ioutil.ReadDir("./music")
+	if err != nil {
+		return nil, err
+	}
+
+	out := make([]*Piece, len(files))
+	for i, file := range files {
+		out[i], err = PieceFromId(file.Name())
+	}
+	return out, err
 }
 
 func PieceFromId(id string) (*Piece, error) {
@@ -95,7 +109,22 @@ func main() {
 				}
 			}
 		} else {
-		    http.ServeFile(w, r, "home.html")
+		    t, err := template.ParseFiles("index.html")
+		    if err != nil {
+		    	w.WriteHeader(500)
+		    	io.WriteString(w, err.Error())
+		    }
+		    list, err := PieceList()
+		    if err != nil {
+		    	fmt.Fprintln(os.Stderr, err.Error())
+		    }
+		    if list == nil {
+		    	fmt.Fprintln(os.Stderr, err)
+		    }
+		    if err = t.Execute(w, list); err != nil {
+				io.WriteString(w, err.Error())
+		    	return
+		    }
 		}
 	})
 	http.ListenAndServe(":8123", nil)

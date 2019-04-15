@@ -1,0 +1,11 @@
+<html lang="en">
+	<head>
+		<title>Music</title>
+		<style>body { font-family: sans-serif; }</style>
+	</head>
+	<body>
+		{{range .}}
+			<a href="/{{.Id}}">{{.Name}}</a>
+		{{end}}
+	</body>
+</html>

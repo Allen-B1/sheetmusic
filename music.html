@@ -2,7 +2,7 @@
 	<head>
 		<title>{{.Name}}</title>
 		<style>
-body {
+body { font-family: sans-serif;
 	padding: 0;
 	margin: 0;
 	display: flex;
@@ -16,6 +16,8 @@ main {
 }
 audio { 
 	width: 100%;
+	position: relative;
+	z-index: 1;
 }
 main #img {
 	flex-grow: 1;
@@ -90,6 +92,7 @@ main #img img {
 			if (!img.src.endsWith("/{{.Id}}/" + n + ".png"))
 				img.src = "/{{.Id}}/" + n + ".png";
 		}
+		audio.onseeking = audio.ontimeupdate;
 
 		document.onkeypress = function(e) {
 			if (e.keyCode == 105 || e.which == 105) {
