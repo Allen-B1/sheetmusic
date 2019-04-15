@@ -1,0 +1,18 @@
+{
+	"name": "Symphony No. 6",
+	"audio": "http://imslp.eu/files/imglnks/euimg/2/2b/IMSLP531483-PMLP01595-Symphonie_n%C2%B0_6,_op._68_%E2%80%9CPastorale%E2%80%9D_(Ludwig_van_Beethoven)_Philips_05.433_R%C2%A4.mp3",
+	"map": {
+		"1s": 1,
+		"17s250ms": 2,
+		"29s750ms": 3,
+		"41s100ms": 4,
+		"52s800ms": 5,
+		"1m7s": 6,
+		"1m19s800ms": 7,
+		"1m32s800ms": 8,
+		"1m47s": 9,
+		"1m59s": 10,
+		"2m11s300ms":11,
+		"2m22s": 12
+	}
+}
