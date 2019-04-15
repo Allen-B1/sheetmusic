@@ -127,5 +127,10 @@ func main() {
 		    }
 		}
 	})
-	http.ListenAndServe(":8123", nil)
+
+	port := os.Getenv("PORT")
+	if len(port) == 0 {
+		port = "8123"
+	}
+	fmt.Fprintln(os.Stderr, http.ListenAndServe(":" + port, nil))
 }
