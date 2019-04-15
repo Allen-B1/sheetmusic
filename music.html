@@ -68,7 +68,7 @@ main #img img {
 			<span class="close" onclick="this.parentNode.style.display = 'none'">x</span>
 		</div>
 
-		<script>
+		<script>		
 		var map = {{.Map}};
 		var arr = [];
 		for (var key in map) {
@@ -95,6 +95,8 @@ main #img img {
 			}			
 			if (!img.src.endsWith("/{{.Id}}/" + n + ".png"))
 				img.src = "/{{.Id}}/" + n + ".png";
+
+			location.hash = this.currentTime | 0;
 		}
 		audio.onseeking = audio.ontimeupdate;
 
@@ -107,6 +109,14 @@ main #img img {
 					s.style.display = "block";
 			}
 		}
+
+		window.onhashchange = function() {
+			if (location.hash.length > 1 && location.hash.slice(1) !== String(audio.currentTime | 0)) {
+				console.info("Hash changed - seeking");
+				audio.currentTime = location.hash.slice(1);
+			}
+		};
+		window.onhashchange();
 		</script>
 	</body>
 </html>
