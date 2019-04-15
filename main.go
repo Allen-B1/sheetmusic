@@ -21,7 +21,7 @@ type Piece struct {
 	Description string
 	Composer string
 	Color string
-	Map map[uint64]uint // map
+	Map map[uint64]string // map
 }
 
 func ToString(val interface{}) string {
@@ -58,17 +58,13 @@ func PieceFromId(id string) (*Piece, error) {
 	if !ok {
 		return nil, errors.New("Key \"map\" is not present or is the wrong type")
 	}
-	am := make(map[uint64]uint)
+	am := make(map[uint64]string)
 	for str, page := range amraw {
 		timestamp, err := time.ParseDuration(str)
 		if err != nil {
 			return nil, err
 		}
-		pagef, ok := page.(float64)
-		if !ok {
-			return nil, errors.New("\"map\"[\"" + str + "\"] is not an integer")
-		}
-		am[uint64(timestamp) / 1000000] = uint(pagef)
+		am[uint64(timestamp) / 1000000] = fmt.Sprint(page)
 	}
  	
 	return &Piece{
