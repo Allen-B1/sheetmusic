@@ -1,12 +1,14 @@
 {
-	"name": "Symphony No. 6",
+	"name": "Symphony No. 6 \"Pastorale\"",
 	"composer": "Ludwig van Beethoven",
 	
 	"audio": "http://imslp.eu/files/imglnks/euimg/2/2b/IMSLP531483-PMLP01595-Symphonie_n%C2%B0_6,_op._68_%E2%80%9CPastorale%E2%80%9D_(Ludwig_van_Beethoven)_Philips_05.433_R%C2%A4.mp3",
 	"audio_artist": "London Symphony Orchestra",
+
+	"color": "#4caf50",
 	
 	"map": {
-		"1s": 1,
+		"900ms": 1,
 		"17s250ms": 2,
 		"29s750ms": 3,
 		"41s100ms": 4,

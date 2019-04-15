@@ -28,14 +28,15 @@ main #img img {
 	transform: translate(-50%, -50%);
 }
 .sidebar {
-	width: 300px;
-	background: #2196f3;
+	width: 350px;
 	color: #fff;
 	padding: 16px;
 	position: relative;
+	font-size: 16px;
 }
 .sidebar h1 {
 	margin-top: 0;
+	font-size: 20px;
 }
 .sidebar .close {
 	cursor: pointer;
@@ -53,7 +54,7 @@ main #img img {
 			<audio src="{{.Audio}}" controls></audio>
 		</main>
 
-		<div class="sidebar">
+		<div class="sidebar" style="background:{{.Color}}">
 			<h1>{{.Name}}</h1>
 			<p>By <u>{{.Composer}}</u></p>
 			<p>{{.Description}}</p>
@@ -88,6 +89,16 @@ main #img img {
 			}			
 			if (!img.src.endsWith("/{{.Id}}/" + n + ".png"))
 				img.src = "/{{.Id}}/" + n + ".png";
+		}
+
+		document.onkeypress = function(e) {
+			if (e.keyCode == 105 || e.which == 105) {
+				var s = document.querySelector(".sidebar");
+				if (s.style.display == "block") 
+					s.style.display = "none";
+				else
+					s.style.display = "block";
+			}
 		}
 		</script>
 	</body>

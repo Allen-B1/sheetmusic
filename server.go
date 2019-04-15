@@ -19,6 +19,7 @@ type Piece struct {
 	Artist string
 	Description string
 	Composer string
+	Color string
 	Map map[uint64]uint // map
 }
 
@@ -63,6 +64,7 @@ func PieceFromId(id string) (*Piece, error) {
 		Artist: ToString(m["audio_artist"]),
 		Description: ToString(m["description"]),
 		Composer: ToString(m["composer"]),
+		Color: ToString(m["color"]),
 		Map: am,
 	}, nil
 }
