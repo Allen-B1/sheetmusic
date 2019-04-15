@@ -16,7 +16,17 @@ type Piece struct {
 	Id string // id of piece
 	Name string // name
 	Audio string // url to audio
+	Artist string
+	Description string
+	Composer string
 	Map map[uint64]uint // map
+}
+
+func ToString(val interface{}) string {
+	if (val == nil) {
+		return ""
+	}
+	return fmt.Sprint(val)
 }
 
 func PieceFromId(id string) (*Piece, error) {
@@ -48,8 +58,11 @@ func PieceFromId(id string) (*Piece, error) {
  	
 	return &Piece{
 		Id: id,
-		Name: fmt.Sprint(m["name"]),
-		Audio: fmt.Sprint(m["audio"]),
+		Name: ToString(m["name"]),
+		Audio: ToString(m["audio"]),
+		Artist: ToString(m["audio_artist"]),
+		Description: ToString(m["description"]),
+		Composer: ToString(m["composer"]),
 		Map: am,
 	}, nil
 }
