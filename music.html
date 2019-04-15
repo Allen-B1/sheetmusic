@@ -31,7 +31,7 @@
 					n = arr[i][1];
 				}
 			}			
-			if (img.src != "/{{.Id}}/" + n + ".png")
+			if (!img.src.endsWith("/{{.Id}}/" + n + ".png"))
 				img.src = "/{{.Id}}/" + n + ".png";
 		}
 		</script>
