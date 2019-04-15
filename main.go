@@ -11,6 +11,8 @@ import (
 	"time"
 	"strings"
 	"os"
+	"sort"
+	"strconv"
 )
 
 type Piece struct {
@@ -22,6 +24,8 @@ type Piece struct {
 	Composer string
 	Color string
 	Map map[uint64]string // map
+	MovementTimes map[string]uint64
+	MovementList []string
 }
 
 func ToString(val interface{}) string {
@@ -66,8 +70,8 @@ func PieceFromId(id string) (*Piece, error) {
 		}
 		am[uint64(timestamp) / 1000000] = fmt.Sprint(page)
 	}
- 	
-	return &Piece{
+
+	out := &Piece{
 		Id: id,
 		Name: ToString(m["name"]),
 		Audio: ToString(m["audio"]),
@@ -76,7 +80,44 @@ func PieceFromId(id string) (*Piece, error) {
 		Composer: ToString(m["composer"]),
 		Color: ToString(m["color"]),
 		Map: am,
-	}, nil
+	}
+
+	if m["mvmts"] != nil {	
+		out.MovementTimes = make(map[string]uint64)
+	
+		mvmts, ok := m["mvmts"].(map[string]interface{})
+		if !ok {
+			return nil, errors.New("Key \"mvmts\" is wrong type")
+		}
+
+		for mvmt, timeInter := range mvmts {
+			timeStr, ok := timeInter.(string)
+			if !ok { return nil, errors.New("Key \"mvmts\" is wrong type") }
+
+			time, err := time.ParseDuration(timeStr)
+			if err != nil {
+				return nil, err
+			}
+			
+			out.MovementTimes[mvmt] = uint64(time) / 1000000
+			out.MovementList = append(out.MovementList, mvmt)
+		}
+
+		sort.Slice(out.MovementList, func (i, j int) bool {
+			iDot := strings.Index(out.MovementList[i], ".")
+			jDot := strings.Index(out.MovementList[j], ".")
+			if iDot < 0 || jDot < 0 {
+				return false
+			}
+
+			iNum, _ := strconv.ParseUint(out.MovementList[i][:iDot], 10, 16)
+			jNum, _ := strconv.ParseUint(out.MovementList[j][:jDot], 10, 16)
+
+			return iNum < jNum
+		})
+	}
+ 	
+	return out, nil
 }
 
 func main() {
