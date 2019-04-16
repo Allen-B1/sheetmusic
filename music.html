@@ -7,6 +7,7 @@ body { font-family: sans-serif;
 	margin: 0;
 	display: flex;
 	flex-direction: row;
+	overflow: hidden;
 }
 main {
 	display: flex;
@@ -138,7 +139,6 @@ a {
 		audio.onseeking = audio.ontimeupdate;
 
 		document.onkeypress = function(e) {
-			console.log("hi");
 			e.keyCode = e.keyCode || e.which;
 			if (e.keyCode == 105) {
 				var s = document.querySelector(".sidebar");
@@ -161,13 +161,10 @@ a {
 
 		window.onhashchange = function() {
 			if (location.hash.length > 1 && location.hash.slice(1) !== String(audio.currentTime | 0)) {
-				console.info("Hash changed - seeking");
 				audio.currentTime = location.hash.slice(1);
 			}
 		};
 		window.onhashchange();
-
-		console.log({{.MovementTimes}})
 		</script>
 	</body>
 </html>
