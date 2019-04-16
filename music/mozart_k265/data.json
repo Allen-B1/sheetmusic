@@ -2,5 +2,45 @@
 	"name": "12 Variations on \"Ah, vous dirai-je maman\"",
 
 	"audio": "http://ks.imslp.net/files/imglnks/usimg/0/06/IMSLP72959-PMLP55775-Mozart_variations_AhVousDiraisJeMaman_Ligoratti.mp3",
-	"artist": "Stefano Ligoratti"
+	"artist": "Stefano Ligoratti",
+
+	"color": "#DDDDED",
+
+	"map": {
+		"700ms": "T",
+		"47s500ms": "V1",
+		"1m31s": "V2",
+		"2m16s500ms": "V3",
+		"3m5s": "V4_1",
+		"3m24s500ms": "V4_3",
+		"3m36s500ms": "V4_2",
+		"3m40s500ms": "V4_3",
+		"3m53s500ms": "V5_1",
+		"4m9s800ms": "V5_2",
+		"4m18s500ms": "V5_3",
+		"4m25s500ms": "V5_2",
+		"4m34s200ms": "V5_3",
+		"4m42s500ms": "V6_1",
+		"4m58s200ms": "V6_2",
+		"5m12s": "V7_1",
+		"5m28s600ms": "V7_3",
+		"5m39s": "V8"
+	},
+
+	"sheet": {
+		"Source": "http://ks.imslp.net/files/imglnks/usimg/3/31/IMSLP00661-Mozart_-_Variations_on_Ah!_Vous-dirai-je_maman,_K_265.pdf",
+		"Editor": "Series XXI editors"
+	},
+
+	"mvmts": {
+		"1. Theme": "0s",
+		"2. Variation I": "47s500ms",
+		"3. Variation II": "1m31s",
+		"4. Variation III": "2m16s500ms",
+		"5. Variation IV": "3m5s",
+		"6. Variation V": "3m53s",
+		"7. Variation VI": "4m42s500ms",
+		"8. Variation VII": "5m12s",
+		"9. Variation VIII": "5m39s"
+	}
 }
