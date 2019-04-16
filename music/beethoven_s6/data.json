@@ -8,7 +8,7 @@
 	},
 	
 	"audio": "http://imslp.eu/files/imglnks/euimg/2/2b/IMSLP531483-PMLP01595-Symphonie_n%C2%B0_6,_op._68_%E2%80%9CPastorale%E2%80%9D_(Ludwig_van_Beethoven)_Philips_05.433_R%C2%A4.mp3",
-	"audio_artist": "London Symphony Orchestra",
+	"artist": "London Symphony Orchestra",
 
 	"color": "#D9F4A3",
 	
@@ -61,7 +61,7 @@
 	},
 
 	"mvmts": {
-		"1. Awakening of cheerful feelings on arrival in the countryside: Allegro ma non troppo": "0s",
+		"1. Awakening of cheerful feelings on arrival in the countryside: Allegro ma non troppo": "0m0s",
 		"2. Scene by the brook: Andante molto mosso": "9m3s"
 	}
 }

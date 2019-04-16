@@ -73,7 +73,9 @@ a {
 
 		<div class="sidebar" style="background:{{.Color}}">
 			<h1>{{.Name}}</h1>
-			<p>By <u>{{.Composer}}</u></p>
+			{{if ne .Composer ""}}
+				<p>By <u>{{.Composer}}</u></p>
+			{{end}}
 			<p>{{.Description}}</p>
 			{{if ne (len .MovementList) 0}}
 				<h2>Movements</h2>
@@ -86,7 +88,9 @@ a {
 				</ol>
 			{{end}}
 			<h2>Credits</h2>
-			<p><b>Performer</b> {{.Artist}}<br>
+			{{if ne .Artist ""}}
+				<p><b>Performer</b> {{.Artist}}<br>
+			{{end}}
 			{{range $key, $val := .SheetCredits}}
 				{{if eq $key "Source"}}<b>Sheet Music</b> <a href="{{$val}}" target="_blank">{{(url $val).Host}}</a>
 				{{else}}<b>{{$key}}</b> {{$val}}

@@ -55,28 +55,25 @@ func PieceFromId(id string) (*Piece, error) {
 		return nil, err
 	}
 
-	amraw, ok := m["map"].(map[string]interface{})
-	if !ok {
-		return nil, errors.New("Key \"map\" is not present or is the wrong type")
-	}
-	am := make(map[uint64]string)
-	for str, page := range amraw {
-		timestamp, err := time.ParseDuration(str)
-		if err != nil {
-			return nil, err
-		}
-		am[uint64(timestamp) / 1000000] = fmt.Sprint(page)
-	}
-
 	out := &Piece{
 		Id: id,
 		Name: ToString(m["name"]),
 		Audio: ToString(m["audio"]),
-		Artist: ToString(m["audio_artist"]),
+		Artist: ToString(m["artist"]),
 		Description: ToString(m["description"]),
 		Composer: ToString(m["composer"]),
 		Color: ToString(m["color"]),
-		Map: am,
+	}
+
+	if amraw, ok := m["map"].(map[string]interface{}); ok {
+		out.Map = make(map[uint64]string)
+		for str, page := range amraw {
+			timestamp, err := time.ParseDuration(str)
+			if err != nil {
+				return nil, err
+			}
+			out.Map[uint64(timestamp) / 1000000] = fmt.Sprint(page)
+		}
 	}
 
 	if m["mvmts"] != nil {	
