@@ -26,6 +26,7 @@ type Piece struct {
 	Map map[uint64]string // map
 	MovementTimes map[string]uint64
 	MovementList []string
+	SheetCredits map[string]string
 }
 
 func ToString(val interface{}) string {
@@ -46,6 +47,11 @@ func PieceList() ([]*Piece, error) {
 		out[i], err = PieceFromId(file.Name())
 	}
 	return out, err
+}
+
+func FormatTime(mil uint64) string {
+	sec := mil / 1000
+	return fmt.Sprintf("%d:%02d", sec / 60, sec % 60)
 }
 
 func PieceFromId(id string) (*Piece, error) {
@@ -98,8 +104,10 @@ func PieceFromId(id string) (*Piece, error) {
 			if err != nil {
 				return nil, err
 			}
+
+			dot := strings.Index(mvmt, ".")
 			
-			out.MovementTimes[mvmt] = uint64(time) / 1000000
+			out.MovementTimes[mvmt[dot+2:]] = uint64(time) / 1000000
 			out.MovementList = append(out.MovementList, mvmt)
 		}
 
@@ -115,6 +123,11 @@ func PieceFromId(id string) (*Piece, error) {
 
 			return iNum < jNum
 		})
+
+		for i, mvmt := range out.MovementList {
+			dot := strings.Index(mvmt, ".")
+			out.MovementList[i] = mvmt[dot+2:]
+		}
 	}
  	
 	return out, nil
@@ -127,7 +140,12 @@ func main() {
 				i := strings.Index(r.URL.Path[1:], "/") + 1
 				http.ServeFile(w, r, "music" + r.URL.Path[:i] + "/sheet" + r.URL.Path[i:])
 			} else {
-				t, err := template.ParseFiles("music.html")
+				t, err := template.New("music.html").Funcs(template.FuncMap{
+					"formattime": FormatTime,
+					"div": func (a, b uint64) uint64 {
+						return a / b
+					},
+				}).ParseFiles("music.html")
 				if err != nil {
 					w.WriteHeader(500)
 					io.WriteString(w, err.Error())

@@ -40,9 +40,17 @@ main #img img {
 	position: relative;
 	font-size: 16px;
 }
-.sidebar h1 {
+p {
+	margin-top: 0;
+}
+.sidebar h1, .sidebar h2 {
 	margin-top: 0;
 	font-size: 20px;
+	text-align: center;
+}
+.sidebar h2 {
+	font-size: 18px;
+	margin-bottom: 0.5em;
 }
 .sidebar .close {
 	cursor: pointer;
@@ -64,7 +72,21 @@ main #img img {
 			<h1>{{.Name}}</h1>
 			<p>By <u>{{.Composer}}</u></p>
 			<p>{{.Description}}</p>
-			<p>Performed by {{.Artist}}.</p>
+			{{if ne (len .MovementList) 0}}
+				<h2>Movements</h2>
+				{{$global := .}}
+				<ol>
+				{{range .MovementList}}
+					<li>{{.}} <a href="#{{div (index $global.MovementTimes .) 1000}}">
+						{{- formattime (index $global.MovementTimes .) -}}</a></li>
+				{{end}}
+				</ol>
+			{{end}}
+			<h2>Credits</h2>
+			<p><b>Artist</b> {{.Artist}}</p>
+			{{range $key, $val := .SheetCredits}}
+			<p><b>$key</b> $val</p>
+			{{end}}
 			<span class="close" onclick="this.parentNode.style.display = 'none'">x</span>
 		</div>
 
