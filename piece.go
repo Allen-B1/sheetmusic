@@ -120,6 +120,13 @@ func PieceFromId(id string) (*Piece, error) {
 			out.MovementList[i] = mvmt[dot+2:]
 		}
 	}
+
+	if sheetC, ok := m["sheet"].(map[string]interface{}); ok {
+		out.SheetCredits = make(map[string]string)
+		for key, val := range sheetC {
+			out.SheetCredits[key] = ToString(val)
+		}
+	}
  	
 	return out, nil
 }

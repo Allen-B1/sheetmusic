@@ -35,7 +35,7 @@ main #img img {
 }
 .sidebar {
 	width: 350px;
-	color: #fff;
+	color: rgba(0,0,0,0.75);
 	padding: 16px;
 	position: relative;
 	font-size: 16px;
@@ -57,6 +57,9 @@ p {
 	position: absolute;
 	top: 16px;
 	right: 16px;
+}
+a {
+	color: rgba(0,0,0,0.4);
 }
 		</style>
 	</head>
@@ -83,10 +86,13 @@ p {
 				</ol>
 			{{end}}
 			<h2>Credits</h2>
-			<p><b>Artist</b> {{.Artist}}</p>
+			<p><b>Performer</b> {{.Artist}}<br>
 			{{range $key, $val := .SheetCredits}}
-			<p><b>$key</b> $val</p>
+				{{if eq $key "Source"}}<b>Sheet Music</b> <a href="{{$val}}" target="_blank">{{(url $val).Host}}</a>
+				{{else}}<b>{{$key}}</b> {{$val}}
+				{{end}}<br>
 			{{end}}
+			</p>
 			<span class="close" onclick="this.parentNode.style.display = 'none'">x</span>
 		</div>
 

@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"strings"
 	"os"
+	"net/url"
 )
 
 func FormatTime(mil uint64) string {
@@ -26,6 +27,7 @@ func main() {
 					"div": func (a, b uint64) uint64 {
 						return a / b
 					},
+					"url": url.Parse,
 				}).ParseFiles("music.html")
 				if err != nil {
 					w.WriteHeader(500)

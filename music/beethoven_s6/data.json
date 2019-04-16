@@ -3,14 +3,14 @@
 	"composer": "Ludwig van Beethoven",
 	
 	"sheet": {
-		"source": "http://ks.imslp.net/files/imglnks/usimg/6/63/IMSLP504082-PMLP1595-combinepdf.pdf",
-		"editor": "Henry Charles Litolff"
+		"Source": "http://ks.imslp.net/files/imglnks/usimg/6/63/IMSLP504082-PMLP1595-combinepdf.pdf",
+		"Editor": "Henry Charles Litolff"
 	},
 	
 	"audio": "http://imslp.eu/files/imglnks/euimg/2/2b/IMSLP531483-PMLP01595-Symphonie_n%C2%B0_6,_op._68_%E2%80%9CPastorale%E2%80%9D_(Ludwig_van_Beethoven)_Philips_05.433_R%C2%A4.mp3",
 	"audio_artist": "London Symphony Orchestra",
 
-	"color": "#4caf50",
+	"color": "#D9F4A3",
 	
 	"map": {
 		"900ms": "1_1",
