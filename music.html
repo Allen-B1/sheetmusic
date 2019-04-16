@@ -57,6 +57,11 @@ p {
 	position: absolute;
 	top: 16px;
 	right: 16px;
+	border-radius: 16px;
+	padding: 8px 16px;
+}
+.sidebar .close:focus, .sidebar .close:hover {
+	background: rgba(0,0,0,0.2);
 }
 a {
 	color: rgba(0,0,0,0.4);
@@ -97,7 +102,7 @@ a {
 				{{end}}<br>
 			{{end}}
 			</p>
-			<span class="close" onclick="this.parentNode.style.display = 'none'">x</span>
+			<span tabIndex="1" class="close" onclick="this.parentNode.style.display = 'none'">&times;</span>
 		</div>
 
 		<script>		
@@ -133,12 +138,24 @@ a {
 		audio.onseeking = audio.ontimeupdate;
 
 		document.onkeypress = function(e) {
-			if (e.keyCode == 105 || e.which == 105) {
+			console.log("hi");
+			e.keyCode = e.keyCode || e.which;
+			if (e.keyCode == 105) {
 				var s = document.querySelector(".sidebar");
 				if (s.style.display == "block") 
 					s.style.display = "none";
 				else
 					s.style.display = "block";
+			}
+			if ((e.keyCode == "k".charCodeAt(0) || e.keyCode == 32) && document.activeElement !== audio) {
+				if (audio.paused) audio.play();
+				else audio.pause();
+			}
+			if (e.keyCode == "j".charCodeAt(0)) {
+				audio.currentTime -= 10;
+			}
+			if (e.keyCode == "l".charCodeAt(0)) {
+				audio.currentTime += 10;
 			}
 		}
 
