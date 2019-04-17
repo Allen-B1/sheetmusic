@@ -1,0 +1,27 @@
+body {
+	font-family: sans-serif;
+	font-size: 14px; 
+	color: rgba(0,0,0,0.75);
+}
+
+p, h1, h2, h3 {
+	margin-top: 0;
+}
+
+h1 {
+	font-size: 18px; }
+h2 {
+	font-size: 14px; }
+
+a {
+	color: rgba(0,0,0,0.4); }
+
+audio { 
+	width: 100%;
+	position: relative;
+	z-index: 1;
+	background: #ddd;
+}
+audio::-webkit-media-controls-panel {
+	background: #ddd;
+}

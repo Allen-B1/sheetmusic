@@ -53,17 +53,27 @@ func main() {
 		    	io.WriteString(w, err.Error())
 		    }
 		    list, err := PieceList()
-		    if err != nil {
-		    	fmt.Fprintln(os.Stderr, err.Error())
-		    }
 		    if list == nil {
 		    	fmt.Fprintln(os.Stderr, err)
 		    }
-		    if err = t.Execute(w, list); err != nil {
+
+			m := make(map[string][]*Piece)
+
+			for _, piece := range list {
+				if piece != nil {
+					m[piece.Composer] = append(m[piece.Composer], piece)
+				}
+			}
+		    
+		    if err = t.Execute(w, m); err != nil {
 				io.WriteString(w, err.Error())
 		    	return
 		    }
 		}
+	})
+
+	http.HandleFunc("/style.css", func (w http.ResponseWriter, r* http.Request) {
+		http.ServeFile(w, r, "style.css")		
 	})
 
 	port := os.Getenv("PORT")
