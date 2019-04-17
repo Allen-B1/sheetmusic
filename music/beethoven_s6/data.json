@@ -83,11 +83,24 @@
 		"16m32s800ms": "2_24",
 		"16m48s": "2_25",
 		"17m2s500ms": "2_26",
-		"17m17s400ms": "2_27"
+		"17m17s400ms": "2_27",
+		"17m38s300ms": "2_28",
+		"17m53s700ms": "2_29",
+		"18m9s200ms": "2_30",
+		"18m23s900ms": "2_31",
+		"18m43s900ms": "2_32",
+		"19m4s900ms": "2_33",
+		"19m31s200ms": "2_34",
+		"19m46s900ms": "2_35",
+		"20m2s500ms": "2_36",
+		"20m18s900ms": "2_37",
+		"20m46s200ms": "2_38",
+		"21m19s500ms": "3_1"
 	},
 
 	"mvmts": {
 		"1. Awakening of cheerful feelings on arrival in the countryside: Allegro ma non troppo": "0m0s",
-		"2. Scene by the brook: Andante molto mosso": "9m3s"
+		"2. Scene by the brook: Andante molto mosso": "9m3s",
+		"3. Merry gathering of country folk: Allegro": "21m19s500ms"
 	}
 }
