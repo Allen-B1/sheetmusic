@@ -120,23 +120,30 @@ main #img img {
 		audio.onseeking = audio.ontimeupdate;
 
 		document.onkeypress = function(e) {
-			e.keyCode = e.keyCode || e.which;
-			if (e.keyCode == 105) {
-				var s = document.querySelector(".sidebar");
-				if (s.style.display == "block") 
-					s.style.display = "none";
-				else
-					s.style.display = "block";
-			}
-			if ((e.keyCode == "k".charCodeAt(0) || e.keyCode == 32) && document.activeElement !== audio) {
-				if (audio.paused) audio.play();
-				else audio.pause();
-			}
-			if (e.keyCode == "j".charCodeAt(0)) {
-				audio.currentTime -= 10;
-			}
-			if (e.keyCode == "l".charCodeAt(0)) {
-				audio.currentTime += 10;
+			switch (e.keyCode || e.which) {
+				case "i".charCodeAt(0): {
+					var s = document.querySelector(".sidebar");
+					if (s.style.display == "block") 
+						s.style.display = "none";
+					else
+						s.style.display = "block";
+					break;
+				}
+				case "k".charCodeAt(0):
+				case 32: {
+					if (audio.paused) audio.play();
+					else audio.pause();
+					break;
+				}
+				
+				case "j".charCodeAt(0): {
+					audio.currentTime -= e.shiftKey ? 15 : 5;
+					break;
+				}
+				case "l".charCodeAt(0): {
+					audio.currentTime += e.shiftKey ? 15 : 5;
+					break;
+				}
 			}
 		}
 
