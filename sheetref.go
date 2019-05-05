@@ -11,6 +11,7 @@ import (
 	"io/ioutil"
 	"regexp"
 	"bytes"
+	"math/rand"
 )
 
 // Maps url to file path
@@ -75,10 +76,16 @@ func (ref SheetRef) Get() ([]byte, error) {
 			page, _ = strconv.ParseUint(fields[3], 10, 64)
 		}
 
-		tmp, err := ioutil.TempFile("", "sheetmusic-*.pdf")
-		tmp.Write(body)
-		defer tmp.Close()
-		defer os.Remove(tmp.Name())
+		if _, ok := sheetRefCache[url]; !ok {
+			tmp, err := os.Create(".cache/" + strconv.FormatInt(rand.Int63(), 36) + ".pdf")
+			if err != nil {
+				return nil, err
+			}
+			tmp.Write(body)
+			defer tmp.Close()
+
+			sheetRefCache[url] = tmp.Name()
+		}
 
 		var opts = []string{}
 		opts = append(opts, "-q", "-dSAFER", "-dBATCH", "-dNOPAUSE", "-sDEVICE=pnggray", "-sPageList=" + fmt.Sprint(page), "-sOutputFile=-")
@@ -90,7 +97,7 @@ func (ref SheetRef) Get() ([]byte, error) {
 			bottomY, _ := strconv.Atoi(bottom[1])
 
 			// TODO
-			pageSize := pdfHeight(tmp.Name(), uint(page))
+			pageSize := pdfHeight(sheetRefCache[url], uint(page))
 
 			fmt.Println(pageSize)
 
@@ -103,7 +110,7 @@ func (ref SheetRef) Get() ([]byte, error) {
 			opts = append(opts, "-c",  "<</Install {-" + fmt.Sprint(topX) + " " +  fmt.Sprint(topY - (int(pageSize) - height)) + " translate}>> setpagedevice")
 		}
 
-		opts = append(opts, "-f", tmp.Name())
+		opts = append(opts, "-f", sheetRefCache[url])
 		out, err := exec.Command("gs", opts...).Output()
 		if err != nil {
 			if exiterr, ok := err.(*exec.ExitError); ok {

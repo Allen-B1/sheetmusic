@@ -16,6 +16,8 @@ func FormatTime(mil uint64) string {
 }
 
 func main() {
+    os.Mkdir(".cache", 0777)
+
 	http.HandleFunc("/", func (w http.ResponseWriter, r *http.Request) {
 		if len(r.URL.Path) > 1 {
 			if strings.HasSuffix(r.URL.Path, ".png") {
