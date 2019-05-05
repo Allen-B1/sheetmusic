@@ -91,7 +91,7 @@ func (ref SheetRef) Get() ([]byte, error) {
 		}
 
 		var opts = []string{}
-		opts = append(opts, "-q", "-dSAFER", "-dBATCH", "-dNOPAUSE", "-sDEVICE=pnggray", "-r120", "-sPageList=" + fmt.Sprint(page), "-sOutputFile=-")
+		opts = append(opts, "-q", "-dSAFER", "-dBATCH", "-dNOPAUSE", "-sDEVICE=pnggray", "-r144", "-sPageList=" + fmt.Sprint(page), "-sOutputFile=-")
 
 		if len(bottom) >= 2 && len(top) >= 2 {
 			topX, _ := strconv.Atoi(top[0])
@@ -104,8 +104,6 @@ func (ref SheetRef) Get() ([]byte, error) {
 
 			width := bottomX - topX
 			height := bottomY - topY
-
-			_ = width; _ = height;
 
 			opts = append(opts, "-dFIXEDMEDIA", "-dDEVICEWIDTHPOINTS=" + fmt.Sprint(width), "-dDEVICEHEIGHTPOINTS=" + fmt.Sprint(height))
 			opts = append(opts, "-c",  "<</Install {-" + fmt.Sprint(topX) + " " +  fmt.Sprint(topY - (int(pageSize) - height)) + " translate}>> setpagedevice")
