@@ -40,7 +40,7 @@ func main() {
 					return
 				}	
 				w.Header().Set("Content-Type", "image/png")
-                w.Header().Set("Cache-Control", "public, max-age=31536000")
+                w.Header().Set("Cache-Control", "public, max-age=31556926")
 				w.Write(data)
 			} else {
 				t, err := template.New("music.html").Funcs(template.FuncMap{
