@@ -22,7 +22,22 @@ func main() {
 		if len(r.URL.Path) > 1 {
 			if strings.HasSuffix(r.URL.Path, ".png") {
 				i := strings.Index(r.URL.Path[1:], "/") + 1
-				http.ServeFile(w, r, "music" + r.URL.Path[:i] + "/sheet" + r.URL.Path[i:])
+				var imageid = r.URL.Path[i+1:len(r.URL.Path) - 4]
+				var id = r.URL.Path[1:i]
+				sheet, err := SheetFromId(id)
+				if err != nil {
+					w.WriteHeader(500)
+					io.WriteString(w, err.Error())
+					return
+				}
+				data, err := SheetRef(sheet[imageid]).Get()
+				if err != nil {
+					w.WriteHeader(500)
+					io.WriteString(w, err.Error())
+					return
+				}	
+				w.Header().Set("Content-Type", "image/png")
+				w.Write(data)
 			} else {
 				t, err := template.New("music.html").Funcs(template.FuncMap{
 					"formattime": FormatTime,

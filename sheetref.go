@@ -48,6 +48,9 @@ func pdfHeight(path string, page uint) uint {
 
 func (ref SheetRef) Get() ([]byte, error) {
     var fields = strings.Fields(string(ref))
+    if len(fields) == 0 {
+        return nil, errors.New("Invalid ref")
+    }
     var url = fields[0]
 
 	resp, err := http.Get(url)
@@ -88,7 +91,7 @@ func (ref SheetRef) Get() ([]byte, error) {
 		}
 
 		var opts = []string{}
-		opts = append(opts, "-q", "-dSAFER", "-dBATCH", "-dNOPAUSE", "-sDEVICE=pnggray", "-sPageList=" + fmt.Sprint(page), "-sOutputFile=-")
+		opts = append(opts, "-q", "-dSAFER", "-dBATCH", "-dNOPAUSE", "-sDEVICE=pnggray", "-r120", "-sPageList=" + fmt.Sprint(page), "-sOutputFile=-")
 
 		if len(bottom) >= 2 && len(top) >= 2 {
 			topX, _ := strconv.Atoi(top[0])
@@ -98,8 +101,6 @@ func (ref SheetRef) Get() ([]byte, error) {
 
 			// TODO
 			pageSize := pdfHeight(sheetRefCache[url], uint(page))
-
-			fmt.Println(pageSize)
 
 			width := bottomX - topX
 			height := bottomY - topY
