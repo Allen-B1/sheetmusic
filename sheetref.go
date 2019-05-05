@@ -117,6 +117,7 @@ func (ref SheetRef) Get() ([]byte, error) {
 			}
 			return nil, err
 		}
+
 		return out, nil
 	} else if strings.HasSuffix(url, ".png") {
 		return body, nil
