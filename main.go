@@ -8,6 +8,8 @@ import (
 	"strings"
 	"os"
 	"net/url"
+    "math/rand"
+	"time"
 )
 
 func FormatTime(mil uint64) string {
@@ -17,6 +19,7 @@ func FormatTime(mil uint64) string {
 
 func main() {
     os.Mkdir(".cache", 0777)
+    rand.Seed(time.Now().UnixNano())
 
 	http.HandleFunc("/", func (w http.ResponseWriter, r *http.Request) {
 		if len(r.URL.Path) > 1 {
@@ -37,6 +40,7 @@ func main() {
 					return
 				}	
 				w.Header().Set("Content-Type", "image/png")
+                w.Header().Set("Cache-Control", "public, max-age=31536000")
 				w.Write(data)
 			} else {
 				t, err := template.New("music.html").Funcs(template.FuncMap{
