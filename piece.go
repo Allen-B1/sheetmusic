@@ -22,7 +22,9 @@ type Piece struct {
 	Map map[uint64]string // map
 	MovementTimes map[string]uint64
 	MovementList []string
+
 	SheetCredits map[string]string
+    SheetMap map[string]SheetRef
 }
 
 func ToString(val interface{}) string {
