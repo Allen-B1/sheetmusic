@@ -24,7 +24,6 @@ type Piece struct {
 	MovementList []string
 
 	SheetCredits map[string]string
-    SheetMap map[string]SheetRef
 }
 
 func ToString(val interface{}) string {

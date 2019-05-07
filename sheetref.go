@@ -17,7 +17,7 @@ import (
 // Maps url to file path
 var sheetRefCache = make(map[string]string)
 
-type SheetRef string
+type SheetRef []string
 
 func pdfHeight(path string, page uint) uint {
 	out, err := exec.Command("pdfinfo", path,
@@ -47,12 +47,10 @@ func pdfHeight(path string, page uint) uint {
 }
 
 func (ref SheetRef) Get() ([]byte, error) {
-    var fields = strings.Fields(string(ref))
-    if len(fields) == 0 {
-        return nil, errors.New("Invalid ref")
+    if len(ref) == 0 {
+        return nil, errors.New("Invalid reference to image")
     }
-    var url = fields[0]
-
+    var url = ref[0]
 	resp, err := http.Get(url)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -67,16 +65,16 @@ func (ref SheetRef) Get() ([]byte, error) {
 	if strings.HasSuffix(url, ".pdf") {
 		var top []string = nil
 		var bottom []string = nil
-		if len(fields) > 1 {
-			top = strings.Split(fields[1], ",")
+		if len(ref) > 2 {
+			top = []string{ref[1], ref[2]}
 		}
-		if len(fields) > 2 {
-			bottom = strings.Split(fields[2], ",")
+		if len(ref) > 4 {
+			bottom = []string{ref[3], ref[4]}
 		}
 
 		var page = uint64(1)
-		if len(fields) > 3 {
-			page, _ = strconv.ParseUint(fields[3], 10, 64)
+		if len(ref) > 5 {
+			page, _ = strconv.ParseUint(ref[5], 10, 64)
 		}
 
 		if _, ok := sheetRefCache[url]; !ok {
