@@ -29,7 +29,7 @@ func main() {
 				var id = r.URL.Path[1:i]
 				sheet, err := SheetFromId(id)
 				if err != nil {
-					w.WriteHeader(500)
+					w.WriteHeader(404)
 					io.WriteString(w, err.Error())
 					return
 				}
